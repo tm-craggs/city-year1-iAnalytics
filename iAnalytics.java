@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class of operations on integer arrays.
  * You MUST NOT change the signatures of the methods supplied. 
@@ -7,16 +9,30 @@
 // Coursework 2024/2025
 //
 // Submission by
-// YOUR_NAME_GOES_HERE
-// YOUR_EMAIL_GOES_HERE
+// Thomas Craggs
+// Thomas.Craggs@city.ac.uk
 
 public class iAnalytics {
 
-    
-	// Task 1: Count unique elements in an ordered array
+    // Task 1: Count unique elements in an ordered array
     public int countUnique(int[] arr) {
-        // replace the following line with your implementation
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        int unique = arr.length; // assume all values in array are unique
+
+        // invariant: 0 ≤ i < arr.length - 1 AND unique ≤ arr.length
+        for (int i = 0; i < arr.length - 1; i++) {
+
+            // check if next value is a duplicate of the current
+            if (arr[i] == arr[i+1]){
+                // decrement unique, as next item is a duplicate
+                unique--;
+            }
+        }
+
+        // TIME COMPLEXITY: O(n)
+        // Where n is the input size, as the algorithm loops through the array once.
+
+        return unique;
     }
 
 
