@@ -29,10 +29,11 @@ public class iAnalytics {
             }
         }
 
+        return unique;
+
         // TIME COMPLEXITY: O(n)
         // Where n is the input size, as the algorithm loops through the array once.
 
-        return unique;
     }
 
 
@@ -45,15 +46,40 @@ public class iAnalytics {
 
     // Task 3: Count elements in an ordered array less than num
     public int countLess(int[] arr, int num) {
-        // replace the following line with your implementation
-        throw new UnsupportedOperationException("Not implemented yet.");
+        int count = 0;
+
+        for (int i : arr){
+            if(i >= num){
+                break;
+            }
+            count++;
+        }
+        return count;
+
+        // TIME COMPLEXITY: O(n)
+        // Where n is the input size, as the algorithm loops through the array once.
+
     }
 	
 
     // Task 4: Count elements in an ordered array between low and high
     public int countBetween(int[] arr, int low, int high) {
-        // replace the following line with your implementation
-        throw new UnsupportedOperationException("Not implemented yet.");
+        int count = 0;
+        for (int i : arr){
+            if(i >= low && i <= high){
+                count++;
+            }
+
+            // terminate loop early if i exceeds high
+            if(i > high){
+                break;
+            }
+        }
+        return count;
+
+        // TIME COMPLEXITY: O(n)
+        // Where n is the input size, as the algorithm loops through the array once.
+
     }
 	
 
