@@ -39,8 +39,36 @@ public class iAnalytics {
 
     // Task 2: Find least frequent value in an ordered array
     public int leastFrequent(int[] arr) {
-        // replace the following line with your implementation
-        throw new UnsupportedOperationException("Not implemented yet.");
+        int minCount = arr.length + 1;  // larger than array, so any found count will be smaller
+        int leastElement = -1;
+        int current_count = 1;
+
+        // start loop on second element to avoid out of bounds
+        for (int i = 1; i < arr.length; i++) {
+
+            // check previous element, if equal, increase the count variable
+            if (arr[i] == arr[i - 1]) {
+                current_count++;
+            }
+            // if not equal, check if the current minCount is smaller than currentCount
+            else {
+                if (current_count < minCount) {
+                    // assign new minCount and leastElement
+                    minCount = current_count;
+                    leastElement = arr[i - 1];
+                }
+                // reset current_count
+                current_count = 1;
+            }
+        }
+
+        // check for the last element
+        if (current_count < minCount) {
+            leastElement = arr[arr.length - 1];
+        }
+
+        return leastElement;
+    }
     }
 
 
@@ -81,7 +109,7 @@ public class iAnalytics {
         // Where n is the input size, as the algorithm loops through the array once.
 
     }
-	
+
 
     // Task 5: Find top K most frequent elements in an ordered array
     public int[] topKFrequent(int[] arr, int k) {
