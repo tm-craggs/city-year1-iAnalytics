@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -113,14 +114,69 @@ public class iAnalytics {
 
     // Task 5: Find top K most frequent elements in an ordered array
     public int[] topKFrequent(int[] arr, int k) {
-        // replace the following line with your implementation
-        throw new UnsupportedOperationException("Not implemented yet.");
+        // create 2D array. each entry will be [value, count]
+        int[][] pairs = new int[arr.length][2];
+        int[] topK = new int[k];
+
+        int current_count = 1;
+        int index = 0;
+
+        // count all unique values and their frequencies, store in 2D array
+        for (int i = 0; i < arr.length - 1; i++) {
+
+            if (arr[i] == arr[i + 1]) {
+                current_count++;
+            } else {
+                pairs[index] = new int[] {arr[i], current_count};
+                index++;
+                current_count = 1;
+            }
+        }
+
+        // handle edge case
+        pairs[index] = new int[] {arr[arr.length - 1], current_count};
+
+
+        // sort 2D array by count
+        for (int i = 0; i < pairs.length - 1; i++){
+            for (int j = 0; j < pairs.length - 1 - i; j++){
+                if (pairs[j][1] < pairs[j + 1][1] ||
+                        (pairs[j][1] == pairs[j + 1][1] && pairs[j][0] > pairs[j + 1][0])) {
+                    int[] temp = pairs[j];
+                    pairs[j] = pairs[j+1];
+                    pairs[j+1] = temp;
+                }
+            }
+        }
+
+        // return array of the first value of up to k in pairs array
+        for (int i = 0; i < k ; i++) {
+            topK[i] = pairs[i][0];
+        }
+        return topK;
     }
 
     // Task 6: Longest contiguous subarray in ascending order
     public int[] longestAscSubarray(int[] arr) {
-        // replace the following line with your implementation
-        throw new UnsupportedOperationException("Not implemented yet.");
+        if (arr == null || arr.length == 0) {
+            return new int[0];
+        }
+
+        int start = 0; // start of current ascending subarray
+        int maxStart = 0, maxLen = 0; // tracking longest subarray
+
+        for (int i = 0; i < arr.length - 1; i++) { // Avoid out-of-bounds
+            if (arr[i + 1] < arr[i]) {
+                // compare current subarray length
+                if (i - start + 1 > maxLen) {
+                    maxLen = i - start + 1;
+                    maxStart = start;
+                }
+                start = i + 1; // reset start for next subarray
+            }
+        }
+
+        return Arrays.copyOfRange(arr, maxStart, maxStart + maxLen);
     }
 
 
