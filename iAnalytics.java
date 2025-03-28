@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Class of operations on integer arrays.
@@ -17,6 +16,8 @@ public class iAnalytics {
 
     // Task 1: Count unique elements in an ordered array
     public int countUnique(int[] arr) {
+
+        if (arr == null || arr.length == 0) {return 0;}
 
         int unique = arr.length; // assume all values in array are unique
 
@@ -40,6 +41,9 @@ public class iAnalytics {
 
     // Task 2: Find least frequent value in an ordered array
     public int leastFrequent(int[] arr) {
+
+        if (arr == null || arr.length == 0) {return 0;}
+
         int minCount = arr.length + 1;  // larger than array, so any found count will be smaller
         int leastElement = -1;
         int current_count = 1;
@@ -75,6 +79,9 @@ public class iAnalytics {
 
     // Task 3: Count elements in an ordered array less than num
     public int countLess(int[] arr, int num) {
+
+        if (arr == null || arr.length == 0) {return 0;}
+
         int count = 0;
 
         for (int i : arr){
@@ -93,6 +100,9 @@ public class iAnalytics {
 
     // Task 4: Count elements in an ordered array between low and high
     public int countBetween(int[] arr, int low, int high) {
+
+        if (arr == null || arr.length == 0) {return 0;}
+
         int count = 0;
         for (int i : arr){
             if(i >= low && i <= high){
@@ -114,6 +124,9 @@ public class iAnalytics {
 
     // Task 5: Find top K most frequent elements in an ordered array
     public int[] topKFrequent(int[] arr, int k) {
+
+        if (arr == null || arr.length == 0) {return new int[0];}
+
         // create 2D array. each entry will be [value, count]
         int[][] pairs = new int[arr.length][2];
         int[] topK = new int[k];
@@ -158,9 +171,9 @@ public class iAnalytics {
 
     // Task 6: Longest contiguous subarray in ascending order
     public int[] longestAscSubarray(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return new int[0];
-        }
+
+        // handle empty array
+        if (arr == null || arr.length == 0) { return new int[0]; }
 
         int start = 0; // start of current ascending subarray
         int maxStart = 0, maxLen = 0; // tracking longest subarray
@@ -177,11 +190,16 @@ public class iAnalytics {
         }
 
         return Arrays.copyOfRange(arr, maxStart, maxStart + maxLen);
+
+        // TIME COMPLEXITY: O(n)
     }
 
 
     // Task 7: Maximum sum of a contiguous subarray with exactly k elements
     public int maxSubarraySum(int[] arr, int k) {
+
+        if (arr == null || arr.length == 0) { return 0;}
+
         int sum = 0;
         int maxSum;
 
@@ -191,7 +209,7 @@ public class iAnalytics {
         }
         maxSum = sum;
 
-
+        // slide window along one space. add the next number in array and minus the last one
         for (int i = k; i < arr.length; i++){
             sum = sum + arr[i] - arr[i - k];
             if (sum > maxSum){
