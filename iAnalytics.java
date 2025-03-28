@@ -49,12 +49,14 @@ public class iAnalytics {
         int current_count = 1;
 
         // start loop on second element to avoid out of bounds
+        // invariant: 1 ≤ i < arr.length
         for (int i = 1; i < arr.length; i++) {
 
             // check previous element, if equal, increase the count variable
             if (arr[i] == arr[i - 1]) {
                 current_count++;
             }
+
             // if not equal, check if the current minCount is smaller than currentCount
             else {
                 if (current_count < minCount) {
@@ -74,16 +76,20 @@ public class iAnalytics {
 
         return leastElement;
 
+        // TIME COMPLEXITY O(n)
+
     }
 
 
     // Task 3: Count elements in an ordered array less than num
     public int countLess(int[] arr, int num) {
 
+        // handle empty or null array
         if (arr == null || arr.length == 0) {return 0;}
 
-        int count = 0;
+        int count = 0;  // stores the number of loops
 
+        // invariant: 0 ≤ i < arr.length
         for (int i : arr){
             if(i >= num){
                 break;
@@ -101,6 +107,7 @@ public class iAnalytics {
     // Task 4: Count elements in an ordered array between low and high
     public int countBetween(int[] arr, int low, int high) {
 
+        // handle empty or null array
         if (arr == null || arr.length == 0) {return 0;}
 
         int count = 0;
@@ -150,7 +157,7 @@ public class iAnalytics {
         pairs[index] = new int[] {arr[arr.length - 1], current_count};
 
 
-        // sort 2D array by count
+        // sort 2D array by count using bubble sort
         for (int i = 0; i < pairs.length - 1; i++){
             for (int j = 0; j < pairs.length - 1 - i; j++){
                 if (pairs[j][1] < pairs[j + 1][1] ||
@@ -167,6 +174,9 @@ public class iAnalytics {
             topK[i] = pairs[i][0];
         }
         return topK;
+
+        // TIME COMPLEXITY: O(n^2)
+        // This is due to the bubble sort implementation having a nested loop.
     }
 
     // Task 6: Longest contiguous subarray in ascending order
@@ -175,10 +185,12 @@ public class iAnalytics {
         // handle empty array
         if (arr == null || arr.length == 0) { return new int[0]; }
 
-        int start = 0; // start of current ascending subarray
-        int maxStart = 0, maxLen = 0; // tracking longest subarray
+        int start = 0; // index of start of current ascending subarray
+        int maxStart = 0;  // index of start of largest subarray
+        int maxLen = 0; // length of largest subarray
 
-        for (int i = 0; i < arr.length - 1; i++) { // Avoid out-of-bounds
+        // invariant: 0 ≤ i < arr.length
+        for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i + 1] < arr[i]) {
                 // compare current subarray length
                 if (i - start + 1 > maxLen) {
@@ -189,21 +201,25 @@ public class iAnalytics {
             }
         }
 
+        //
         return Arrays.copyOfRange(arr, maxStart, maxStart + maxLen);
 
         // TIME COMPLEXITY: O(n)
+        // The main array is looped through once
     }
 
 
     // Task 7: Maximum sum of a contiguous subarray with exactly k elements
     public int maxSubarraySum(int[] arr, int k) {
 
-        if (arr == null || arr.length == 0) { return 0;}
+        // handle cases where the array is empty, or k is greater than the array size
+        if (arr == null || arr.length == 0 || arr.length < k) { return 0;}
 
         int sum = 0;
         int maxSum;
 
         // calculate sum of first k elements
+        // invariant: 0 ≤ i < k
         for (int i = 0; i < k; i++){
             sum += arr[i];
         }
@@ -218,6 +234,10 @@ public class iAnalytics {
         }
 
         return maxSum;
+
+        // TIME COMPLEXITY: O(n)
+        // The main array is looped through once
+
     }
 
 
