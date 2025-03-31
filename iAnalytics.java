@@ -201,8 +201,22 @@ public class iAnalytics {
             }
         }
 
-        //
-        return Arrays.copyOfRange(arr, maxStart, maxStart + maxLen);
+        // manually check if the end of the array is part of the longest accending subarray
+        // as maxLen may not be updated as there is no drop
+
+        if (arr.length - start > maxLen) {
+            maxLen = arr.length - start;
+            maxStart = start;
+        }
+
+        // copy all values between the range into a new array, and return
+        int result[] = new int[maxLen];
+        for (int i = 0; i < maxLen; i++) {
+            result[i] = arr[maxStart + i];
+        }
+
+
+        return result;
 
         // TIME COMPLEXITY: O(n)
         // The main array is looped through once
