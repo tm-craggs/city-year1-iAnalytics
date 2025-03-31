@@ -17,6 +17,7 @@ public class iAnalytics {
     // Task 1: Count unique elements in an ordered array
     public int countUnique(int[] arr) {
 
+        // handle empty array
         if (arr == null || arr.length == 0) {return 0;}
 
         int unique = arr.length; // assume all values in array are unique
@@ -99,7 +100,6 @@ public class iAnalytics {
         return count;
 
         // TIME COMPLEXITY: O(n)
-        // Where n is the input size, as the algorithm loops through the array once.
 
     }
 	
@@ -111,6 +111,8 @@ public class iAnalytics {
         if (arr == null || arr.length == 0) {return 0;}
 
         int count = 0;
+
+        // invariant: 0 ≤ i < arr.length
         for (int i : arr){
             if(i >= low && i <= high){
                 count++;
@@ -124,7 +126,6 @@ public class iAnalytics {
         return count;
 
         // TIME COMPLEXITY: O(n)
-        // Where n is the input size, as the algorithm loops through the array once.
 
     }
 
@@ -132,6 +133,7 @@ public class iAnalytics {
     // Task 5: Find top K most frequent elements in an ordered array
     public int[] topKFrequent(int[] arr, int k) {
 
+        // handle empty array
         if (arr == null || arr.length == 0) {return new int[0];}
 
         // create 2D array. each entry will be [value, count]
@@ -142,11 +144,16 @@ public class iAnalytics {
         int index = 0;
 
         // count all unique values and their frequencies, store in 2D array
+        // invariant: 0 ≤ i < arr.length
         for (int i = 0; i < arr.length - 1; i++) {
 
             if (arr[i] == arr[i + 1]) {
+                // duplicate found, increment current count
                 current_count++;
             } else {
+                // next item not a duplicate
+                // add item and its frequency into main 2D array
+                // increment index var so that next value can be placed in 2D array
                 pairs[index] = new int[] {arr[i], current_count};
                 index++;
                 current_count = 1;
@@ -158,10 +165,20 @@ public class iAnalytics {
 
 
         // sort 2D array by count using bubble sort
+        // if counts are equal, sort by the first value
+
+        // invariant: 0 ≤ i < pairs.length
         for (int i = 0; i < pairs.length - 1; i++){
+
+            // invariant: 0 ≤ j < pairs.length
             for (int j = 0; j < pairs.length - 1 - i; j++){
+
+                // compare the current values count with next, swap if item is larger
+                // add a tie-breaker if count is equal, so that the lower value comes first
                 if (pairs[j][1] < pairs[j + 1][1] ||
                         (pairs[j][1] == pairs[j + 1][1] && pairs[j][0] > pairs[j + 1][0])) {
+
+                    // swap elements
                     int[] temp = pairs[j];
                     pairs[j] = pairs[j+1];
                     pairs[j+1] = temp;
@@ -177,6 +194,7 @@ public class iAnalytics {
 
         // TIME COMPLEXITY: O(n^2)
         // This is due to the bubble sort implementation having a nested loop.
+        // O(n) is achievable when using a HashMap
     }
 
     // Task 6: Longest contiguous subarray in ascending order
@@ -210,7 +228,7 @@ public class iAnalytics {
         }
 
         // copy all values between the range into a new array, and return
-        int result[] = new int[maxLen];
+        int[] result = new int[maxLen];
         for (int i = 0; i < maxLen; i++) {
             result[i] = arr[maxStart + i];
         }
