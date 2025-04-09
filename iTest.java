@@ -57,9 +57,18 @@ public class iTest {
 
             // Test methods that do not require ordered inputs on the test data
 
+            System.out.println("Unique Count: " + sa.countUnique(arr));
+            System.out.println("Least frequent: " + sa.leastFrequent(arr));
+
             Arrays.sort(arr);
 
             // Test methods that require ordered inputs on the test data
+            System.out.println("Count < 5" + sa.countLess(arr, 5));
+            System.out.println("Count between 3 and 7: " + sa.countBetween(arr, 3, 7));
+            System.out.println("Top 3 Frequent: " + Arrays.toString(sa.topKFrequent(arr, 3)));
+            System.out.println("Longest Ascending Subarray: " + Arrays.toString(sa.longestAscSubarray(arr)));
+            System.out.println("Max Sum of 3-length Subarray: " + sa.maxSubarraySum(arr, 3));
+
 
             System.out.println(); // Print a blank line for readability
         }
